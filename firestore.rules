@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Shared project data: all devices should see the same student and marks data.
+    // This app is using custom login logic instead of Firebase Auth, so all users
+    // need access to the same collection for real-time sync across devices.
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
